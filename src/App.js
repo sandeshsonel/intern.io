@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import SignInPage from "./pages/SigninSignUpPage/SignInPage/SignInPage";
+import SignUpPage from "./pages/SigninSignUpPage/SignUpPage/SignUpPage";
+
+const { default: Header } = require("./components/Header/Header");
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="font-rubik">
+      <div>
+        <BrowserRouter>
+          <Header />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/login" component={SignInPage} />
+            <Route path="/signup" component={SignUpPage} />
+          </Switch>
+        </BrowserRouter>
+      </div>
     </div>
   );
 }

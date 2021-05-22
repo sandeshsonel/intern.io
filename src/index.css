@@ -1,13 +1,34 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: 'Graphik';
+  src:  url(./assets/fonts/GraphikLight.ttf);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: 'Graphik Regular';
+  src: local('GraphikRegular'), url(./assets/fonts/GraphikRegular.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'Graphik Medium';
+  src: local('Graphik'), url(./assets/fonts/GraphikMedium.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'Graphik';
+  src: local('GraphikSemibold'), url(./assets/fonts/GraphikSemibold.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'Graphik';
+  src: local('GraphikBold'), url(./assets/fonts/GraphikBold.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'Graphik';
+  src: local('GraphikBlack'), url(./assets/fonts/GraphikBlack.ttf) format('ttf');
 }
