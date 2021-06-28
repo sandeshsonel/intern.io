@@ -1,5 +1,6 @@
 import React from "react";
 import JobsList from "../../components/JobsList/JobsList";
+import Loader from "../../components/Loader/Loader";
 import Pagination from "../../components/Pagination/Pagination";
 import SearchBar from "../../components/SearchBar/SearchBar";
 
@@ -8,8 +9,9 @@ const Home = () => {
     <div>
       <div>
         <SearchBar />
-        <JobsList />
-        <Pagination />
+        {/* <JobsList />
+        <Pagination /> */}
+        <Loader />
       </div>
     </div>
   );

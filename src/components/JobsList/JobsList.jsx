@@ -1,9 +1,22 @@
 import React, { useState } from "react";
+import Loader from "../Loader/Loader";
+
+import Dialog from "@material-ui/core/Dialog";
 
 const JobsList = () => {
   const [jobDetailsDialog, setJobDetailDialog] = useState(false);
+
+  const handleOpenJobDetailDialog = () => {
+    setJobDetailDialog(true);
+  };
+  const handleCloseJobDetailDialog = () => {
+    setJobDetailDialog(false);
+  };
   return (
     <div className="max-w-4xl m-auto mt-2 rounded-md px-4">
+      <div className="items-center text-center mt-4">
+        <Loader />
+      </div>
       <div className="xl:flex xl:items-center xl:justify-between space-y-3 xl:space-y-0 py-6 xl:py-8 border-b-2 border-gray-300">
         <div className="xl:flex xl:items-center xl:space-x-7 space-y-3 xl:space-y-0">
           <div>
@@ -60,7 +73,9 @@ const JobsList = () => {
               />
             </svg>
           </button>
-          <button className="text-sm font-medium uppercase mt-1 outline-none focus:outline-none">View</button>
+          <button onClick={handleOpenJobDetailDialog} className="text-sm font-medium uppercase mt-1 outline-none focus:outline-none">
+            View
+          </button>
         </div>
       </div>
       <div className="xl:flex xl:items-center xl:justify-between space-y-3 xl:space-y-0 py-6 xl:py-8 border-b-2 border-gray-300">
@@ -476,6 +491,9 @@ const JobsList = () => {
           <button className="text-sm font-medium uppercase mt-1 outline-none focus:outline-none">View</button>
         </div>
       </div>
+      <Dialog fullScreen onClose={handleCloseJobDetailDialog} aria-labelledby="simple-dialog-title" open={jobDetailsDialog}>
+        <div>hi</div>
+      </Dialog>
     </div>
   );
 };

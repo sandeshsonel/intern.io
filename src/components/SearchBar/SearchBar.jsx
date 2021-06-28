@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import SearchSuggestion from "../SearchSuggestion/SearchSuggestion";
 
 const SearchBar = () => {
   const [inputFocused, setInputFocused] = useState(false);
+  const [searchSuggestionVisible, setSearchSuggestion] = useState(false);
   const [input, setInput] = useState("");
 
   const onFocus = () => setInputFocused(true);
@@ -12,16 +14,16 @@ const SearchBar = () => {
     <div className="bg-gray-100">
       <div className="max-w-4xl m-auto px-4 lg:px-0 py-8 md:py-16">
         <div className="">
-          <h1 className="lg:text-4xl text-xl font-semiBold leading-snug">
+          <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-4xl font-semiBold leading-snug">
             Discover the best remote jobs <br></br> to work from home.
           </h1>
           <p className="text-lg mt-3 text-gray-500">Browse thousands of remote job listings to work at startups and leading companies.</p>
         </div>
-        <div className="md:flex w-full lg:space-x-2 md:space-x-2 lg:space-y-0 md:space-y-0 space-y-2 md:mt-8 mt-6">
+        <div className="md:flex lg:flex xl:flex w-full lg:space-x-2 md:space-x-2 lg:space-y-0 md:space-y-0 space-y-2 md:mt-8 mt-6">
           <div className="w-full relative">
             <div
               className={`flex items-center bg-white px-3 xl:px-4 w-full ${
-                inputFocused ? "border-2 border-blue-600 focus:ring-2" : "border-2 border-transparent"
+                inputFocused ? "border-2 border-blue-600 focus:ring-2" : "border-2 border-gray-300"
               }`}
             >
               <div>
@@ -37,18 +39,18 @@ const SearchBar = () => {
                 </svg>
               </div>
               <input
-                className="outline-none cursor-pointer focus:outline-none lg:text-lg py-2 lg:py-4 lg:px-4 px-2 placeholder-gray-700 w-full"
+                className="outline-none cursor-pointer focus:outline-none lg:text-lg py-2 md:py-3 md:px-3 lg:py-4 lg:px-4 px-2 placeholder-gray-700 w-full"
                 type="text"
                 placeholder="e.g. Job title, keywords or company"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onFocus={onFocus}
                 onBlur={onBlur}
+                required
               />
               {input && (
                 <button onClick={() => setInput("")} className="outline-none focus:outline-none px-1 py-1 bg-gray-200 rounded-full">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-4" viewBox="0 0 512 512">
-                    <title>Close</title>
                     <path
                       fill="none"
                       stroke="currentColor"
@@ -61,16 +63,12 @@ const SearchBar = () => {
                 </button>
               )}
             </div>
-            {/* <div className="absolute w-full bg-white shadow mt-2">
-              <div className="flex items-center space-x-2 py-3 px-4 hover:bg-gray-50 cursor-pointer">
-                <p className="">Full Stack Developer</p>
-              </div>
-            </div> */}
+            {/* <SearchSuggestion /> */}
           </div>
 
-          <div className="relative bg-white border-2 border-transparent">
+          <div className="relative bg-white border-2 border-gray-300">
             <select
-              className="w-full lg:w-64 py-2 bg-white lg:py-4 px-3 xl:px-4 cursor-pointer pr-8 appearance-none placeholder-gray-400 lg:text-lg outline-none focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="w-full md:w-60 lg:w-64 xl:w-64 py-2 bg-white md:py-3 lg:py-4 xl:py-4 px-3 xl:px-4 cursor-pointer pr-8 appearance-none placeholder-gray-400 lg:text-lg outline-none focus:outline-none focus:ring-2 focus:ring-blue-600"
               name=""
               id=""
             >
@@ -88,7 +86,9 @@ const SearchBar = () => {
               </svg>
             </div>
           </div>
-          <button className="w-full lg:w-auto px-8 py-2 lg:py-0 bg-black text-white outline-none focus:outline-none hover:bg-blue-600">Search</button>
+          <button className="w-full md:w-auto lg:w-auto xl:w-auto px-8 py-2 lg:py-0 bg-black text-white outline-none focus:outline-none hover:bg-blue-600">
+            Search
+          </button>
         </div>
         <div className=""></div>
       </div>
