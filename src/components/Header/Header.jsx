@@ -44,7 +44,11 @@ const Header = (props) => {
             </Link>
           </div>
           <div className="flex items-center space-x-2">
-            {userType === "employer" && <button>Post Job</button>}
+            {userType === "employer" && (
+              <Link to="/post">
+                <button>Post Job</button>
+              </Link>
+            )}
 
             {isLogin ? (
               <div className="flex items-center mr-2 space-x-1 xl:space-x-2">

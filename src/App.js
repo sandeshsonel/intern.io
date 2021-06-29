@@ -1,6 +1,7 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import Home from "./pages/Home/Home";
+import PostJobs from "./pages/PostJobs/PostJobs";
 import SignInPage from "./pages/SigninSignUpPage/SignInPage/SignInPage";
 import SignUpPage from "./pages/SigninSignUpPage/SignUpPage/SignUpPage";
 import history from "./utils/history";
@@ -16,6 +17,7 @@ function App() {
           <Switch>
             <Route path="/login" component={SignInPage} />
             <Route path="/signup" component={SignUpPage} />
+            <Route path="/post" component={PostJobs} />
 
             <Route path="/" component={Home} />
           </Switch>
