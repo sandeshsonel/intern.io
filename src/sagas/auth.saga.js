@@ -90,6 +90,7 @@ function* signUpUserFun({ payload }) {
 
 function* signOut() {
   try {
+    // history.push("/");
     localStorage.removeItem("userData");
     storage.removeItem("persist:root");
     console.warn(localStorage.getItem("userData"));

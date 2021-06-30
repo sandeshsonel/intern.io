@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Switch, Route, Redirect, useLocation, BrowserRouter as Router } from "react-router-dom";
-
-import { setLogin, setUserData } from "./app/actions";
 import Header from "./components/Header/Header";
-
 import Home from "./pages/Home/Home";
-
-import ProfilePage from "./pages/ProfilePage/ProfilePage";
-import SignInPage from "./pages/SignInSignUpPage/SignInPage";
-import SignUpPage from "./pages/SignInSignUpPage/SignUpPage";
+import PostJobs from "./pages/PostJobs/PostJobs";
+import SignInPage from "./pages/SigninSignUpPage/SignInPage/SignInPage";
+import SignUpPage from "./pages/SigninSignUpPage/SignUpPage/SignUpPage";
 
 const DynamicRoutes = ({ isLogin }) => {
   const location = useLocation();
@@ -18,66 +14,32 @@ const DynamicRoutes = ({ isLogin }) => {
     return (
       <Switch location={location} key={location.pathname}>
         <Route path="/login" component={SignInPage} />
-        <Route path="/join" component={SignUpPage} />
-        <Redirect exact from="/" to="/login" />
+        <Route path="/signup" component={SignUpPage} />
+        <Route exact path="/" component={Home} />
+        <Redirect exact to="/" />
       </Switch>
     );
   } else {
     return (
       <>
         <Switch location={location} key={location.pathname}>
-          <Route path="/profile" component={ProfilePage} />
-
-          <Route path="/" component={Home} />
-          <Redirect to="/" />
+          <Route path="/post" component={PostJobs} />
+          <Route exact path="/" component={Home} />
+          <Redirect exact to="/" />
         </Switch>
       </>
     );
   }
 };
-
 class Routes extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-    };
-  }
-
-  checkAutoLogin = () => {
-    const { token, expireDate, setLogin } = this.props;
-    if (token && new Date(expireDate) > new Date()) {
-      setLogin(true);
-    } else {
-      setLogin(false);
-    }
-  };
-
-  componentDidMount() {
-    this.checkAutoLogin();
-    this.setState({
-      isLoading: false,
-    });
-  }
-  componentDidUpdate(prevProps) {
-    if (prevProps.token !== this.props.token || new Date(this.props.expireDate) > new Date()) {
-      this.checkAutoLogin();
-    }
-  }
-
   render() {
-    console.log("xoxo-props-Routes", this.props);
-    const { isLoading } = this.state;
-    if (isLoading) {
-      return <h1>Loding</h1>;
-    }
     return (
-      <React.Fragment>
+      <div>
         <Router>
           <Header />
           <DynamicRoutes {...this.state} {...this.props} />
         </Router>
-      </React.Fragment>
+      </div>
     );
   }
 }
@@ -90,7 +52,4 @@ const mapStateToProps = ({ auth }) => ({
   expireDate: auth.expireDate,
 });
 
-export default connect(mapStateToProps, {
-  setLogin,
-  setUserData,
-})(Routes);
+export default connect(mapStateToProps)(Routes);
