@@ -4,3 +4,4 @@ export const signUpUrl = server + "/users/signup";
 export const signInUrl = server + "/users/login";
 export const userDetailsUrl = server + "/users";
 export const jobsUrl = server + "/jobs";
+export const companyJobsUrl = server + "/companyJobs";

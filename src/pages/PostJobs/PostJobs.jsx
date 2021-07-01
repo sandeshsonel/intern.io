@@ -3,28 +3,41 @@ import React, { useState } from "react";
 const PostJobs = () => {
   const [skills, setSkills] = useState([]);
   const [inputSkill, setInputSkill] = useState("");
+  const [jobsDetails, setJobDetails] = useState({
+    jobPosition: "",
+    jobCompany: "",
+    jobLocation: "",
+    jobCategory: "",
+    jobTags: [],
+    maxSalary: "",
+    minSalary: "",
+    currency: "",
+    salaryInterval: "",
+    applicationUrl: "",
+    applyToEmail: "",
+  });
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter" && inputSkill.length > 0) {
       console.log("do validate");
-      const exists = skills.find((skill) => skill === inputSkill);
-      if (!exists && skills.length !== 5) {
-        setSkills([...skills, inputSkill]);
+      const exists = jobsDetails.jobTags.find((skill) => skill === inputSkill);
+      if (!exists && jobsDetails.jobTags.length !== 5) {
+        setJobDetails({ ...jobsDetails, jobTags: [...jobsDetails.jobTags, inputSkill] });
       }
       setInputSkill("");
     }
   };
 
   const handleAddSkill = () => {
-    const exists = skills.find((skill) => skill === inputSkill);
-    if (!exists && skills.length !== 5 && inputSkill.length > 0) {
-      setSkills([...skills, inputSkill]);
+    const exists = jobsDetails.jobTags.find((skill) => skill === inputSkill);
+    if (!exists && jobsDetails.jobTags.length !== 5 && inputSkill.length > 0) {
+      setJobDetails({ ...jobsDetails, jobTags: [...jobsDetails.jobTags, inputSkill] });
       setInputSkill("");
     }
     console.log("exists", exists);
   };
 
-  console.log(skills);
+  console.log(jobsDetails);
   return (
     <div className="max-w-4xl m-auto">
       <div className="px-3 py-3 border">
@@ -35,6 +48,8 @@ const PostJobs = () => {
           <div className="w-full">
             <label htmlFor="">Position</label>
             <input
+              value={jobsDetails.jobPosition}
+              onChange={(e) => setJobDetails({ ...jobsDetails, jobPosition: e.target.value })}
               className="w-full mt-1 border-2 outline-none focus:border-black focus:outline-none transition-colors duration-200 py-3 px-3"
               type="text"
               placeholder="Web Developer"
@@ -43,6 +58,8 @@ const PostJobs = () => {
           <div className="w-full">
             <label htmlFor="">Company Name</label>
             <input
+              value={jobsDetails.jobCategory}
+              onChange={(e) => setJobDetails({ ...jobsDetails, jobCategory: e.target.value })}
               className="w-full mt-1 border-2 outline-none focus:border-black focus:outline-none transition-colors duration-200 py-3 px-3"
               type="text"
               placeholder="Acme Inc."
@@ -52,6 +69,8 @@ const PostJobs = () => {
         <div className="mt-4">
           <label htmlFor="">Location(s) allowed</label>
           <input
+            value={jobsDetails.jobLocation}
+            onChange={(e) => setJobDetails({ ...jobsDetails, jobLocation: e.target.value })}
             className="w-full mt-1 border-2 outline-none focus:border-black focus:outline-none transition-colors duration-200 py-3 px-3"
             type="text"
             placeholder="Anywhere"
@@ -93,12 +112,12 @@ const PostJobs = () => {
               Add
             </button>
           </div>
-          {skills.length > 0 && (
+          {jobsDetails.jobTags.length > 0 && (
             <div className="flex items-center space-x-2 mt-3 mb-3">
-              {skills.map((skill, idx) => (
+              {jobsDetails.jobTags.map((skill, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setSkills(skills.filter((ski) => ski !== skill))}
+                  onClick={() => setJobDetails({ ...jobsDetails, jobTags: jobsDetails.jobTags.filter((job) => job !== skill) })}
                   className="flex items-center space-x-1 px-2 py-2 bg-gray-200 rounded focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-900 focus:outline-none transition-colors duration-200"
                 >
                   <div>
@@ -115,11 +134,23 @@ const PostJobs = () => {
         <div className="flex items-center space-x-3 mt-4">
           <div>
             <label htmlFor="">Minimum salary</label>
-            <input className="w-full mt-1 py-3 border-2 border-black px-3 outline-none focus:outline-none" type="text" placeholder="45,000" />
+            <input
+              value={jobsDetails.minSalary}
+              onChange={(e) => setJobDetails({ ...jobsDetails, minSalary: e.target.value })}
+              className="w-full mt-1 py-3 border-2 border-black px-3 outline-none focus:outline-none"
+              type="text"
+              placeholder="45,000"
+            />
           </div>
           <div>
             <label htmlFor="">Maximum salary</label>
-            <input className="w-full mt-1 py-3 border-2 border-black px-3 outline-none focus:outline-none" type="text" placeholder="65,200" />
+            <input
+              value={jobsDetails.maxSalary}
+              onChange={(e) => setJobDetails({ ...jobsDetails, maxSalary: e.target.value })}
+              className="w-full mt-1 py-3 border-2 border-black px-3 outline-none focus:outline-none"
+              type="text"
+              placeholder="65,200"
+            />
           </div>
           <div>
             <label htmlFor="">Currency</label>
@@ -171,14 +202,22 @@ const PostJobs = () => {
         <div className="mt-4">
           <label htmlFor="">Application URL</label>
           <input
+            value={jobsDetails.applicationUrl}
+            onChange={(e) => setJobDetails({ ...jobsDetails, applicationUrl: e.target.value })}
             className="w-full px-3 py-3 mt-1 border-2 border-black outline-none focus:outline-none"
-            type="text"
+            type="url"
             placeholder="https://mycompany.com/applicants/job/28"
           />
         </div>
         <div className="mt-4">
           <label htmlFor="">Apply-to email</label>
-          <input className="w-full px-3 py-3 border-2 border-black outline-none focus:outline-none" type="text" placeholder="hr@acme.com" />
+          <input
+            value={jobsDetails.applyToEmail}
+            onChange={(e) => setJobDetails({ ...jobsDetails, applyToEmail: e.target.value })}
+            className="w-full px-3 py-3 border-2 border-black outline-none focus:outline-none"
+            type="email"
+            placeholder="hr@acme.com"
+          />
         </div>
         <button className="w-full py-3 bg-black mt-2 text-white">Post your job</button>
       </div>
