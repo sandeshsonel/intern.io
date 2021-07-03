@@ -6,6 +6,8 @@ import authReducer from "../reducers/authReducer";
 import userProfileReducer from "../reducers/userReducer";
 // import myJobsReducer from "./jobReducer";
 import companyJobReducer from "../reducers/companyJobsReducer";
+import studentApplicationReducer from "../reducers/studentsAppReducer";
+import jobsReducer from "../reducers/jobsReducer";
 
 const persistConfig = {
   key: "root",
@@ -20,7 +22,8 @@ const reducers = combineReducers({
   auth: authReducer,
   userProfile: userProfileReducer,
   companyJobs: companyJobReducer,
-  //   myJobs: myJobsReducer,
+  studentApplications: studentApplicationReducer,
+  jobs: jobsReducer,
 });
 
 export default persistReducer(persistConfig, reducers);

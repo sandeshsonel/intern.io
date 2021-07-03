@@ -19,6 +19,7 @@ const SignUpPage = (props) => {
     password: "",
     confirmPassword: "",
   });
+  const [companyName, setCompanyName] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
   const [inputFocused, setInputFocused] = useState(false);
 
@@ -35,7 +36,7 @@ const SignUpPage = (props) => {
     if (signUpDetails.password !== signUpDetails.confirmPassword) {
       return alert("Please check your confirm password");
     } else {
-      signUpUser({ ...signUpDetails, userType: userType });
+      signUpUser({ ...signUpDetails, userType: userType, companyName: userType === "employer" ? companyName : null });
       setSignUpDetails({ ...signUpDetails });
     }
   };
@@ -75,6 +76,23 @@ const SignUpPage = (props) => {
 
       <form onSubmit={handleSubmit} action="">
         <div className="space-y-2 mt-1">
+          {userType === "employer" && (
+            <div>
+              <div>
+                <label className="font-medium text-sm text-gray-500" htmlFor="">
+                  Company Name
+                </label>
+                <input
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                  required
+                  className="mt-1 xl:mt-2 cursor-pointer w-full outline-none border-2 py-2 px-3 focus:border-black focus:outline-none transition-colors duration-200"
+                  type="text"
+                  placeholder=""
+                />
+              </div>
+            </div>
+          )}
           <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-4 md:space-y-0 lg:space-y-0 xl:space-y-0 md:flex md:space-x-4 md:items-center lg:flex lg:items-center xl:flex xl:items-center xl:space-x-4">
             <div className="w-full">
               <label className="font-medium text-sm text-gray-500" htmlFor="">

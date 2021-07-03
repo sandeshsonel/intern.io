@@ -5,3 +5,4 @@ export const signInUrl = server + "/users/login";
 export const userDetailsUrl = server + "/users";
 export const jobsUrl = server + "/jobs";
 export const companyJobsUrl = server + "/companyJobs";
+export const deleteCompanyJobUrl = (jobId) => server + "/companyJobs/" + jobId;

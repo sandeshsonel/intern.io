@@ -2,13 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Switch, Route, Redirect, useLocation, BrowserRouter as Router } from "react-router-dom";
 import Header from "./components/Header/Header";
+import EmployeeDashboard from "./pages/EmployeeDashboard/EmployeeDashboard";
 import Home from "./pages/Home/Home";
+import ManageJobs from "./pages/ManageJobs/ManageJobs";
 import PostJobs from "./pages/PostJobs/PostJobs";
+import SearchJobListPage from "./pages/SearchJobListPage/SearchJobListPage";
 import SignInPage from "./pages/SigninSignUpPage/SignInPage/SignInPage";
 import SignUpPage from "./pages/SigninSignUpPage/SignUpPage/SignUpPage";
+import StudentsApplications from "./pages/StudentsApplications/StudentsApplications";
 
-const DynamicRoutes = ({ isLogin }) => {
+const DynamicRoutes = (props) => {
+  const { isLogin, userType } = props;
   const location = useLocation();
+  console.log("xoxo", props);
 
   if (!isLogin) {
     return (
@@ -23,8 +29,27 @@ const DynamicRoutes = ({ isLogin }) => {
     return (
       <>
         <Switch location={location} key={location.pathname}>
-          <Route path="/post" component={PostJobs} />
-          <Route exact path="/" component={Home} />
+          {userType === "student" ? (
+            <Switch>
+              {/* <Route path="/:jobSearchPageQuery" component={SearchJobListPage} /> */}
+              <Route path="/myresume" />
+              <Route path="/savedjobs" />
+              <Route path="/applyjobs" />
+              <Route exact path="/" component={Home} />
+              <Redirect exact to="/" />
+            </Switch>
+          ) : (
+            <Switch>
+              {/* <Route path="/:searchjobpage" component={SearchJobListPage} /> */}
+              <Route path="/post" component={PostJobs} />
+              <Route path="/dashboard" component={EmployeeDashboard} />
+              <Route path="/managejobs" component={ManageJobs} />
+              <Route path="/studentapplications" component={StudentsApplications} />
+              <Route exact path="/" component={Home} />
+              <Redirect exact to="/" />
+            </Switch>
+          )}
+          {/* <Route exact path="/" component={Home} /> */}
           <Redirect exact to="/" />
         </Switch>
       </>
@@ -44,12 +69,9 @@ class Routes extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => ({
-  isLogin: auth.isLogin,
-  token: auth.token,
-  email: auth.email,
-  fullName: auth.fullName,
-  expireDate: auth.expireDate,
+const mapStateToProps = (state) => ({
+  isLogin: state.auth.isLogin,
+  userType: state.userProfile.userType,
 });
 
 export default connect(mapStateToProps)(Routes);

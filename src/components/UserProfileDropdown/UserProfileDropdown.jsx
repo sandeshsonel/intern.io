@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { signOutUser } from "../../app/actions";
@@ -68,10 +69,16 @@ const UserProfileDropdown = (props) => {
                   <li className="hover:bg-gray-100 px-2 xl:px-3 py-2 cursor-pointer">Edit Profile</li>
                   {userType === "employer" ? (
                     <div>
-                      <li className="hover:bg-gray-100 px-2 xl:px-3 py-2 cursor-pointer">Manage Jobs</li>
+                      <Link to="managejobs">
+                        <li className="hover:bg-gray-100 px-2 xl:px-3 py-2 cursor-pointer">Manage Jobs</li>
+                      </Link>
+                      <Link to="/studentapplications">
+                        <li className="hover:bg-gray-100 px-2 xl:px-3 py-2 cursor-pointer">Student Applications</li>
+                      </Link>
                     </div>
                   ) : (
                     <div>
+                      <li className="hover:bg-gray-100 px-2 xl:px-3 py-2 cursor-pointer">My Resume</li>
                       <li className="hover:bg-gray-100 px-2 xl:px-3 py-2 cursor-pointer">Saved Jobs</li>
                       <li className="hover:bg-gray-100 px-2 xl:px-3 py-2 cursor-pointer">Applied Jobs</li>
                     </div>

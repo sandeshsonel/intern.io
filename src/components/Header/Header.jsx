@@ -33,8 +33,11 @@ const Header = (props) => {
   console.log(props);
 
   return (
-    <div style={{ WebkitBackdropFilter: "blur(20px)", backdropFilter: "blur(20px)" }} className="py-2 xl:py-3 border-b sticky z-50 top-0 w-full bg-white">
-      <div className="max-w-4xl m-auto lg:px-0">
+    <div
+      style={{ WebkitBackdropFilter: "blur(20px)", backdropFilter: "blur(20px)" }}
+      className="py-2 xl:py-3 border-b-2 border-black sticky z-50 top-0 w-full bg-white"
+    >
+      <div className="max-w-5xl m-auto lg:px-0">
         <div className="flex items-center justify-between">
           <div className="relative ml-4 xl:ml-0">
             <Link to="/">
@@ -45,9 +48,23 @@ const Header = (props) => {
           </div>
           <div className="flex items-center space-x-2">
             {userType === "employer" && (
-              <Link to="/post">
-                <button>Post Job</button>
-              </Link>
+              <ul className="flex items-center space-x-4">
+                <li>
+                  <Link to="/dashboard">
+                    <button>Dashboard</button>
+                  </Link>
+                </li>
+                {/* <li>
+                  <Link to="/post">
+                    <button>Post Job</button>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/managejobs">
+                    <button>Manage Jobs</button>
+                  </Link>
+                </li> */}
+              </ul>
             )}
 
             {isLogin ? (

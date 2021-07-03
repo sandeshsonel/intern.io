@@ -25,7 +25,7 @@ const companyJobsReducer = (state = initial_state, action) => {
         isLoading: false,
         error: action.payload,
       };
-    case CompanyJobsActionTypes.ADD_COMPANY_JOB:
+    case CompanyJobsActionTypes.ADD_COMPANY_JOB_START:
       return {
         ...state,
         isLoading: true,

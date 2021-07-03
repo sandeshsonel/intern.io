@@ -23,7 +23,6 @@ const SignInPage = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSignInUserDetails(signInDetails);
-    setSignInDetails({ ...signInDetails, email: "", password: "" });
   };
 
   console.log(props);

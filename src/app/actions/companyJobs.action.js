@@ -14,8 +14,9 @@ export const getAllCompanyJobsFailed = (errorMsg) => ({
   payload: errorMsg,
 });
 
-export const addCompanyJob = () => ({
-  type: CompanyJobsActionTypes.ADD_COMPANY_JOB,
+export const addCompanyJobStart = (jobDetails) => ({
+  type: CompanyJobsActionTypes.ADD_COMPANY_JOB_START,
+  payload: jobDetails,
 });
 
 export const addCompanyJobSuccess = (companyJob) => ({
@@ -28,8 +29,9 @@ export const addCompanyJobFailed = (errorMsg) => ({
   payload: errorMsg,
 });
 
-export const deleteCompanyJob = () => ({
+export const deleteCompanyJob = (deleteJobId) => ({
   type: CompanyJobsActionTypes.DELETE_COMPANY_JOB,
+  payload: deleteJobId,
 });
 
 export const deleteCompanyJobSuccess = (companyJob) => ({

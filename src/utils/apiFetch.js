@@ -1,6 +1,6 @@
 const axios = require("axios");
 const store = require("../store/index");
-const { signUpUrl, signInUrl, userDetailsUrl, jobsUrl, companyJobsUrl } = require("../config");
+const { signUpUrl, signInUrl, userDetailsUrl, jobsUrl, companyJobsUrl, deleteCompanyJobUrl } = require("../config");
 const axiosConfig = {
   headers: {
     "Content-Type": "application/json;charset=UTF-8",
@@ -95,7 +95,7 @@ export const deleteJobApi = async (data) => {
     },
   };
   try {
-    let axiosResult = await axios.delete(jobsUrl(data), config);
+    let axiosResult = await axios.delete(deleteCompanyJobUrl(data), config);
     return axiosResult && axiosResult.data;
   } catch (error) {
     console.log("xoxo-error", error);
@@ -104,7 +104,7 @@ export const deleteJobApi = async (data) => {
 };
 
 // companyJobs
-export const getCompanyJobs = async () => {
+export const getCompanyJobsApi = async () => {
   const { token } = store.default.store.getState().auth;
 
   const newConfig = {
@@ -121,7 +121,7 @@ export const getCompanyJobs = async () => {
   }
 };
 
-export const addCompanyJob = async (data) => {
+export const addCompanyJobApi = async (data) => {
   console.log("bobo-data", data);
   const { token } = store.default.store.getState().auth;
   console.log("bobo", token);
@@ -137,5 +137,22 @@ export const addCompanyJob = async (data) => {
     return axiosResult && axiosResult.data;
   } catch (error) {
     throw error;
+  }
+};
+
+export const getAllJobsApi = async (data) => {
+  console.log("api-fetch", data);
+  const newConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+  };
+  try {
+    let axiosResult = await axios.get(jobsUrl, {
+      params: data,
+    });
+    return axiosResult && axiosResult.data;
+  } catch (err) {
+    throw err;
   }
 };
