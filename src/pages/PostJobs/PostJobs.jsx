@@ -148,8 +148,8 @@ const PostJobs = (props) => {
                 id=""
               >
                 {jobCategory.map((cat, idx) => (
-                  <option key={idx} value={cat}>
-                    {cat}
+                  <option key={idx} value={cat.value}>
+                    {cat.name}
                   </option>
                 ))}
               </select>

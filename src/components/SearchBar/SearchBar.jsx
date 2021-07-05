@@ -101,12 +101,14 @@ const SearchBar = (props) => {
           className="w-full md:w-60 lg:w-64 xl:w-64 py-2 bg-white md:py-3 lg:py-4 xl:py-4 px-3 xl:px-4 cursor-pointer pr-8 appearance-none placeholder-gray-400 lg:text-lg outline-none focus:outline-none focus:ring-2 focus:ring-blue-600"
           name=""
           id=""
-          value={category}
           onChange={handleCategory}
         >
+          <option value="none" selected disabled>
+            All categories
+          </option>
           {jobCategory.map((cat, idx) => (
-            <option defaultValue={category} key={idx} selected={cat === "All categories"} disabled={cat === "All Category"} value={cat}>
-              {cat}
+            <option key={idx} value={cat.value}>
+              {cat.name}
             </option>
           ))}
         </select>
