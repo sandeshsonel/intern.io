@@ -58,8 +58,8 @@ const PostJobs = (props) => {
 
   console.log(props, jobsDetails);
   return (
-    <div className="max-w-4xl m-auto">
-      <div className="px-3 py-3 border">
+    <div className="max-w-5xl m-auto">
+      <div className="px-3 py-3 border shadow-md mt-4 mb-4">
         <div className="space-y-6">
           <div>
             <label htmlFor="">Upload Company logo</label>

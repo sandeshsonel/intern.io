@@ -39,34 +39,36 @@ const Header = (props) => {
     >
       <div className="max-w-5xl m-auto lg:px-0">
         <div className="flex items-center justify-between">
-          <div className="relative ml-4 xl:ml-0">
+          <div className="relative ml-4 xl:ml-0 flex items-center">
             <Link to="/">
-              <a className="text-xl lg:text-3xl xl:text-4xl font-medium" href="">
+              <a className="text-xl lg:text-2xl xl:text-3xl font-medium" href="">
                 intern.io
               </a>
             </Link>
+
+            <div className="ml-10">
+              {userType === "employer" && (
+                <ul className="flex items-center space-x-4">
+                  <li>
+                    <Link to="/">
+                      <button>Dashboard</button>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/candidates">
+                      <button>Candidates</button>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/inbox">
+                      <button>Inbox</button>
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </div>
           </div>
           <div className="flex items-center space-x-2">
-            {userType === "employer" && (
-              <ul className="flex items-center space-x-4">
-                <li>
-                  <Link to="/dashboard">
-                    <button>Dashboard</button>
-                  </Link>
-                </li>
-                {/* <li>
-                  <Link to="/post">
-                    <button>Post Job</button>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/managejobs">
-                    <button>Manage Jobs</button>
-                  </Link>
-                </li> */}
-              </ul>
-            )}
-
             {isLogin ? (
               <div className="flex items-center mr-2 space-x-1 xl:space-x-2">
                 <div className="relative">

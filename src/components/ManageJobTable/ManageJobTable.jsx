@@ -50,7 +50,7 @@ const ManageJobTable = (props) => {
 
   console.log(selectCompanyJob);
   return (
-    <div class="overflow-x-auto">
+    <div class="overflow-x-auto max-w-5xl m-auto">
       <div class="flex items-center justify-center overflow-hidden">
         <div class="w-full ">
           <div class="bg-white shadow-md rounded my-6">

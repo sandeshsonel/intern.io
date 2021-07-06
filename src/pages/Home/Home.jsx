@@ -35,7 +35,7 @@ const Home = (props) => {
         ) : (
           <div>
             <JobsList />
-            <Pagination />
+            {/* <Pagination /> */}
           </div>
         )}
       </div>

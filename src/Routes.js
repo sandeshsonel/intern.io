@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Switch, Route, Redirect, useLocation, BrowserRouter as Router } from "react-router-dom";
 import Header from "./components/Header/Header";
+import CandidatesPage from "./pages/CandidatesPage/CandidatesPage";
 import EmployeeDashboard from "./pages/EmployeeDashboard/EmployeeDashboard";
 import Home from "./pages/Home/Home";
+import InboxPage from "./pages/InboxPage/InboxPage";
 import ManageJobs from "./pages/ManageJobs/ManageJobs";
 import PostJobs from "./pages/PostJobs/PostJobs";
 import SearchJobListPage from "./pages/SearchJobListPage/SearchJobListPage";
@@ -42,10 +44,11 @@ const DynamicRoutes = (props) => {
             <Switch>
               {/* <Route path="/:searchjobpage" component={SearchJobListPage} /> */}
               <Route path="/post" component={PostJobs} />
-              <Route path="/dashboard" component={EmployeeDashboard} />
+              <Route path="/candidates" component={CandidatesPage} />
+              <Route path="/inbox" component={InboxPage} />
               <Route path="/managejobs" component={ManageJobs} />
               <Route path="/studentapplications" component={StudentsApplications} />
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" component={EmployeeDashboard} />
               <Redirect exact to="/" />
             </Switch>
           )}
