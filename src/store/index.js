@@ -1,32 +1,23 @@
-import { applyMiddleware, compose, createStore } from "redux";
-import { persistStore } from "redux-persist";
-import reducers from "../app/reducers";
+import { createStore, applyMiddleware, compose } from "redux";
+import reducer from "../app/reducers";
+import thunk from "redux-thunk";
 
-import { createBrowserHistory } from "history";
-import createSagaMiddleware from "redux-saga";
-import rootSaga from "../sagas";
-import { routerMiddleware } from "react-router-redux";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-export const history = createBrowserHistory();
-const routeMiddleware = routerMiddleware(history);
-const sagaMiddleware = createSagaMiddleware();
-const middlewares = [sagaMiddleware, routeMiddleware];
-
-const enhancers = [];
-
-// if (isClient && isDeveloping) {
-const devToolsExtension = window.devToolsExtension;
-if (typeof devToolsExtension === "function") {
-  enhancers.push(devToolsExtension());
-}
-
-export const store = createStore(reducers, compose(applyMiddleware(...middlewares), ...enhancers));
-export const persistor = persistStore(store);
-sagaMiddleware.run(rootSaga);
-
-const storeValue = {
-  store,
-  persistor,
+const persistConfig = {
+  key: "root",
+  storage: storage,
+  whitelist: ["registration_session", "session"],
+  blacklist: [],
 };
 
-export default storeValue;
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export const store =
+  process.env.REACT_ENV === "production"
+    ? createStore(persistedReducer, applyMiddleware(thunk))
+    : createStore(persistedReducer, composeEnhancers(applyMiddleware(thunk)));
+
+export const persistor = persistStore(store);

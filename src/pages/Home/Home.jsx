@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import JobsList from "../../components/JobsList/JobsList";
 import Pagination from "../../components/Pagination/Pagination";
@@ -7,25 +7,40 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import { getAllJobsStart } from "../../app/actions";
 import Loader from "../../components/Loader/Loader";
 
+import { getAllJobsApi } from "../../requests";
+
 const Home = (props) => {
-  console.log("xoxo-props", props);
-  const {
-    getAllJobsStart,
-    jobs: { jobs, isLoading },
-  } = props;
+  const [isLoading, setIsLoading] = useState(true);
+  const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    getAllJobsStart({ category: "Software Development" });
+    getAllJobs();
   }, []);
+
+  const getAllJobs = async () => {
+    setIsLoading(true);
+    const res = await props.getAllJobsApi({ category: "Software Development" });
+    if (res.error) {
+      setIsLoading(false);
+      return;
+    } else {
+      setJobs(res.data);
+    }
+    console.log(res);
+  };
+
   console.log("home-props", props);
   return (
-    <div>
-      <div className="max-w-5xl m-auto px-4 lg:px-0 py-8 md:py-16">
+    <div className="">
+      <div className="max-w-6xl m-auto px-4 lg:px-0 py-8 md:py-16">
         <div className="">
-          <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-4xl font-semiBold leading-snug">
-            Discover the best remote jobs <br></br> to work from home.
+          <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight">
+            Find your internship with intern.io
           </h1>
-          <p className="text-lg mt-3 text-gray-500">Browse thousands of remote job listings to work at startups and leading companies.</p>
+          <p className="text-xl xl:text-2xl mt-3 text-gray-500">
+            Browse thousands of internship job listings to work at startups and
+            leading companies.
+          </p>
         </div>
         <SearchBar />
         {isLoading ? (
@@ -34,8 +49,8 @@ const Home = (props) => {
           </div>
         ) : (
           <div>
-            <JobsList />
-            {/* <Pagination /> */}
+            <JobsList jobs={jobs} />
+            <Pagination />
           </div>
         )}
       </div>
@@ -47,8 +62,8 @@ const mapStateToProps = (state) => ({
   jobs: state.jobs,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getAllJobsStart: (data) => dispatch(getAllJobsStart(data)),
-});
+const mapDispatchToProps = {
+  getAllJobsApi,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

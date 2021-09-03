@@ -21,6 +21,7 @@ const useStyles = makeStyles(() => ({
 const JobsList = (props) => {
   const classes = useStyles();
   const { isLogin, jobs } = props;
+  console.log("xoxo", jobs);
   const [jobDetailsDialog, setJobDetailDialog] = useState(false);
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -48,7 +49,12 @@ const JobsList = (props) => {
   const handleClickSavedJob = (userId, companyJobId) => {
     console.log("save job");
     if (!isLogin) {
-      setSnackbar({ ...snackbar, open: true, message: "Please Login", warning: "info" });
+      setSnackbar({
+        ...snackbar,
+        open: true,
+        message: "Please Login",
+        warning: "info",
+      });
       setTimeout(() => {
         setSnackbar({ ...snackbar, open: false });
       }, 2000);
@@ -56,13 +62,17 @@ const JobsList = (props) => {
       console.log("pooo", userId, companyJobId);
     }
   };
-  const toggleOpenJobsDetailsDrawer = (userId, companyJobsDetails) => (event) => {
-    if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
-      return;
-    }
-    setSelectJob({ userId, companyJobsDetails });
-    setJobsDetailsDrawer({ right: true });
-  };
+  const toggleOpenJobsDetailsDrawer =
+    (userId, companyJobsDetails) => (event) => {
+      if (
+        event.type === "keydown" &&
+        (event.key === "Tab" || event.key === "Shift")
+      ) {
+        return;
+      }
+      setSelectJob({ userId, companyJobsDetails });
+      setJobsDetailsDrawer({ right: true });
+    };
   const toggleCloseJobsDetailsDrawer = () => {
     setJobsDetailsDrawer({ right: false });
   };
@@ -74,18 +84,33 @@ const JobsList = (props) => {
   return (
     <div className="mt-5 space-y-4">
       {jobs.map(({ userId, companyJobsDetails }) => (
-        <div className="xl:flex xl:items-center xl:justify-between py-4 border-gray-300 bg-white px-4 border-2 hover:border-gray-500 hover:shadow-md">
+        <div
+          onClick={toggleOpenJobsDetailsDrawer(userId, companyJobsDetails)}
+          className="xl:flex xl:items-center xl:justify-between py-4 border-gray-300 bg-white px-4 border-2 hover:border-gray-500 hover:shadow-md cursor-pointer"
+        >
           <div className="xl:flex xl:items-center xl:space-x-7 space-y-3 xl:space-y-0">
             <div>
-              <img className="w-24 rounded-md" src={companyJobsDetails.companyLogoUrl} alt="" />
+              <img
+                className="w-14 xl:w-24 rounded-md"
+                src={companyJobsDetails.companyLogoUrl}
+                alt=""
+              />
             </div>
             <div>
-              <h1 className="font-medium text-lg xl:text-xl">{companyJobsDetails.jobPosition}</h1>
-              <p className="text-base xl:text-base text-gray-500">{companyJobsDetails.jobCompany}</p>
+              <h1 className="font-medium text-lg xl:text-xl">
+                {companyJobsDetails.jobPosition}
+              </h1>
+              <p className="text-base xl:text-base text-gray-500">
+                {companyJobsDetails.jobCompany}
+              </p>
               <div className="space-y-1 mt-1 text-gray-500">
                 <div className="flex items-center space-x-2">
                   <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4" viewBox="0 0 512 512">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="w-4"
+                      viewBox="0 0 512 512"
+                    >
                       <path
                         d="M256 48c-79.5 0-144 61.39-144 137 0 87 96 224.87 131.25 272.49a15.77 15.77 0 0025.5 0C304 409.89 400 272.07 400 185c0-75.61-64.5-137-144-137z"
                         fill="none"
@@ -94,14 +119,29 @@ const JobsList = (props) => {
                         stroke-linejoin="round"
                         stroke-width="32"
                       />
-                      <circle cx="256" cy="192" r="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+                      <circle
+                        cx="256"
+                        cy="192"
+                        r="48"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="32"
+                      />
                     </svg>
                   </div>
-                  <span className="text-sm">{companyJobsDetails.jobLocation}</span>
+                  <span className="text-sm">
+                    {companyJobsDetails.jobLocation}
+                  </span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4" viewBox="0 0 512 512">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="w-4"
+                      viewBox="0 0 512 512"
+                    >
                       <path
                         d="M256 64C150 64 64 150 64 256s86 192 192 192 192-86 192-192S362 64 256 64z"
                         fill="none"
@@ -109,17 +149,40 @@ const JobsList = (props) => {
                         stroke-miterlimit="10"
                         stroke-width="32"
                       />
-                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M256 128v144h96" />
+                      <path
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="32"
+                        d="M256 128v144h96"
+                      />
                     </svg>
                   </div>
-                  <span className="text-sm">Posted {moment(companyJobsDetails.createdAt).format("dddd")}</span>
+                  <span className="text-sm">
+                    Posted {moment(companyJobsDetails.createdAt).format("dddd")}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
+          <div className="flex items-center space-x-2 py-2">
+            {companyJobsDetails.jobTags.map((tag) => (
+              <div className="text-sm px-2 py-1 bg-gray-100">{tag}</div>
+            ))}
+          </div>
           <div className="flex items-center space-x-4">
-            <button onClick={() => handleClickSavedJob(userId, companyJobsDetails._id)} className="">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-5" viewBox="0 0 512 512">
+            <button
+              onClick={() =>
+                handleClickSavedJob(userId, companyJobsDetails._id)
+              }
+              className=""
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-5"
+                viewBox="0 0 512 512"
+              >
                 <path
                   d="M480 208H308L256 48l-52 160H32l140 96-54 160 138-100 138 100-54-160z"
                   fill="none"
@@ -144,17 +207,36 @@ const JobsList = (props) => {
       ))}
 
       {Object.keys(selectJob).length > 0 && (
-        <Drawer anchor="right" open={jobsDetailsDrawer["right"]} onClose={toggleCloseJobsDetailsDrawer}>
+        <Drawer
+          anchor="right"
+          open={jobsDetailsDrawer["right"]}
+          onClose={toggleCloseJobsDetailsDrawer}
+        >
           <div className="py-4 px-4 max-w-4xl m-auto">
             <div className="flex items-start justify-between">
               <div className="flex items-center space-x-2">
-                <div>{selectJob.companyJobsDetails.companyLogoUrl && <img className="w-24" src={selectJob.companyJobsDetails.companyLogoUrl} alt="" />}</div>
                 <div>
-                  <h1 className="text-2xl font-semiBold">{selectJob.companyJobsDetails.jobPosition}</h1>
-                  <p className="text-xl text-gray-500">{selectJob.companyJobsDetails.jobCompany}</p>
+                  {selectJob.companyJobsDetails.companyLogoUrl && (
+                    <img
+                      className="w-24"
+                      src={selectJob.companyJobsDetails.companyLogoUrl}
+                      alt=""
+                    />
+                  )}
+                </div>
+                <div>
+                  <h1 className="text-2xl font-semiBold">
+                    {selectJob.companyJobsDetails.jobPosition}
+                  </h1>
+                  <p className="text-xl text-gray-500">
+                    {selectJob.companyJobsDetails.jobCompany}
+                  </p>
                   <div className="space-x-2 mt-1">
                     {selectJob.companyJobsDetails.jobTags.map((tag, idx) => (
-                      <span key={idx} className="px-2 py-1 text-xs border border-gray-600 rounded-md uppercase bg-gray-100 font-medium">
+                      <span
+                        key={idx}
+                        className="px-2 py-1 text-xs border border-gray-600 rounded-md uppercase bg-gray-100 font-medium"
+                      >
                         {tag}
                       </span>
                     ))}
@@ -164,7 +246,11 @@ const JobsList = (props) => {
 
               <div className="py-2 flex space-x-2">
                 <button className="px-1 py-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5" viewBox="0 0 512 512">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5"
+                    viewBox="0 0 512 512"
+                  >
                     <path
                       d="M480 208H308L256 48l-52 160H32l140 96-54 160 138-100 138 100-54-160z"
                       fill="none"
@@ -178,7 +264,9 @@ const JobsList = (props) => {
             </div>
             <div className=" ">
               <h1>Job description</h1>
-              <Interweave content={selectJob.companyJobsDetails.jobDescription} />
+              <Interweave
+                content={selectJob.companyJobsDetails.jobDescription}
+              />
             </div>
             <div className="mt-4">
               <textarea
@@ -283,12 +371,17 @@ const JobsList = (props) => {
 
       <Snackbar
         autoHideDuration={2000}
-        anchorOrigin={{ vertical: snackbar.vertical, horizontal: snackbar.horizontal }}
+        anchorOrigin={{
+          vertical: snackbar.vertical,
+          horizontal: snackbar.horizontal,
+        }}
         open={snackbar.open}
         // onClose={handleClose}
         key={snackbar.vertical + snackbar.horizontal}
       >
-        <div className="py-2 px-2 bg-white border-2 border-black">{snackbar.message}</div>
+        <div className="py-2 px-2 bg-white border-2 border-black">
+          {snackbar.message}
+        </div>
       </Snackbar>
     </div>
   );
@@ -296,7 +389,6 @@ const JobsList = (props) => {
 
 const mapStateToProps = (state) => ({
   isLogin: state.auth.isLogin,
-  jobs: state.jobs.jobs,
 });
 
 const mapDispatchToProps = (dispatch) => ({});
